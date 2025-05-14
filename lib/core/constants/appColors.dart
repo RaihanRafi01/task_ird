@@ -10,4 +10,6 @@ class AppColors {
   static const Color subTitleColor = Color(0x80353535);
   static const Color backgroundWhite = Color(0xFFF4F4F4);
   static const Color dividerColor = Color(0xFFEFEFEF);
+  static const Color bottomSheetTitle = Color(0xFF35414D);
+  static const Color bottomSheetIcon = Color(0xFF5D646F);
 }

@@ -6,6 +6,7 @@ import '../../core/constants/appFonts.dart';
 import '../controllers/hadiths_controller.dart';
 import '../../domain/entities/hadith.dart';
 import '../../domain/entities/section.dart';
+import '../widgets/hadithBottomSheet.dart';
 
 class HadithsScreen extends StatelessWidget {
   final int chapterId;
@@ -34,26 +35,26 @@ class HadithsScreen extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Obx(() => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              controller.hadiths.isNotEmpty
-                  ? controller.hadiths[0].bookName
-                  : controller.chapter.value?.bookName ?? 'Loading...',
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              controller.chapter.value?.title ?? 'Loading...',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.white.withOpacity(0.9),
-              ),
-            ),
-          ],
-        )),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  controller.hadiths.isNotEmpty
+                      ? controller.hadiths[0].bookName
+                      : controller.chapter.value?.bookName ?? 'Loading...',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  controller.chapter.value?.title ?? 'Loading...',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white.withOpacity(0.9),
+                  ),
+                ),
+              ],
+            )),
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
@@ -100,7 +101,7 @@ class HadithCard extends StatelessWidget {
     SectionEntity? matchingSection;
     if (hadith.sectionId != null) {
       matchingSection = controller.sections.firstWhereOrNull(
-            (section) => section.sectionId == hadith.sectionId,
+        (section) => section.sectionId == hadith.sectionId,
       );
     }
 
@@ -108,7 +109,8 @@ class HadithCard extends StatelessWidget {
     bool showHeader = false;
     if (matchingSection != null) {
       // Check if this is the first hadith or the sectionId differs from the previous hadith
-      if (index == 0 || controller.hadiths[index - 1].sectionId != hadith.sectionId) {
+      if (index == 0 ||
+          controller.hadiths[index - 1].sectionId != hadith.sectionId) {
         showHeader = true;
       }
     }
@@ -128,23 +130,27 @@ class HadithCard extends StatelessWidget {
               color: Colors.white,
               margin: const EdgeInsets.all(12),
               elevation: 0,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildHadithHeader(),
+                  _buildHadithHeader(context),
                   Padding(
                     padding: const EdgeInsets.all(10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 3),
-                        if (hadith.ar != null && hadith.ar!.isNotEmpty) _buildArabicText(),
+                        if (hadith.ar != null && hadith.ar!.isNotEmpty)
+                          _buildArabicText(),
                         const SizedBox(height: 20),
-                        if (hadith.narrator != null && hadith.narrator!.isNotEmpty)
+                        if (hadith.narrator != null &&
+                            hadith.narrator!.isNotEmpty)
                           _buildNarratorText(),
                         const SizedBox(height: 20),
-                        if (hadith.bn != null && hadith.bn!.isNotEmpty) _buildTranslationText(),
+                        if (hadith.bn != null && hadith.bn!.isNotEmpty)
+                          _buildTranslationText(),
                         _buildReferences(),
                       ],
                     ),
@@ -215,7 +221,7 @@ class HadithCard extends StatelessWidget {
     );
   }
 
-  Widget _buildHadithHeader() {
+  Widget _buildHadithHeader(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
       child: Row(
@@ -260,7 +266,8 @@ class HadithCard extends StatelessWidget {
                 ),
                 Text(
                   hadith.bookName,
-                  style: h4.copyWith(fontSize: 12, color: AppColors.subTitleColor),
+                  style:
+                      h4.copyWith(fontSize: 12, color: AppColors.subTitleColor),
                 ),
               ],
             ),
@@ -268,7 +275,9 @@ class HadithCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
-              color: Color(int.parse(hadith.gradeColor?.replaceFirst('#', '0xFF') ?? '0xFF009688')),
+              color: Color(int.parse(
+                  hadith.gradeColor?.replaceFirst('#', '0xFF') ??
+                      '0xFF009688')),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
@@ -280,14 +289,22 @@ class HadithCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          const Icon(Icons.more_vert_rounded, color: AppColors.btnColorGray),
+          GestureDetector(
+            onTap: (){
+              showHadithMoreOptions(context, hadith.id);
+            },
+              child: const Icon(Icons.more_vert_rounded,
+                  color: AppColors.btnColorGray)),
         ],
       ),
     );
   }
 
   Widget _buildNarratorText() {
-    return Text('${hadith.narrator} থেকে বর্ণিত:',style: h2.copyWith(fontSize: 14,color: AppColors.appColor),);
+    return Text(
+      '${hadith.narrator} থেকে বর্ণিত:',
+      style: h2.copyWith(fontSize: 14, color: AppColors.appColor),
+    );
   }
 
   Widget _buildArabicText() {
