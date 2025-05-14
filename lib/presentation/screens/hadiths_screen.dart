@@ -83,58 +83,61 @@ class HadithCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.backgroundWhite, // Background color
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)), // Curved corners
-      ),
-      child: Column(
-        children: [
-          if (index == 0) _buildChapterHeader(),
-          Card(
-            color: Colors.white,
-            margin: const EdgeInsets.all(12),
-            elevation: 0,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildHadithHeader(),
-                Padding(
-                  padding:
-                  const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 3),
-                      if (hadith.ar != null && hadith.ar!.isNotEmpty)
-                        _buildArabicText(),
-                      const SizedBox(height: 20),
-                      if (hadith.narrator != null && hadith.narrator!.isNotEmpty)
-                        _buildNarratorText(),
-                      const SizedBox(height: 20),
-                      if (hadith.bn != null && hadith.bn!.isNotEmpty)
-                        _buildTranslationText(),
-                      if (hadith.note != null && hadith.note!.isNotEmpty)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 12),
-                          child: Text(
-                            'Note: ${hadith.note}',
-                            style: const TextStyle(
-                              fontStyle: FontStyle.italic,
-                              fontSize: 14,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.backgroundWhite, // Background color
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        child: Column(
+          children: [
+            if (index == 0) _buildChapterHeader(),
+            Card(
+              color: Colors.white,
+              margin: const EdgeInsets.all(12),
+              elevation: 0,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildHadithHeader(),
+                  Padding(
+                    padding:
+                    const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 3),
+                        if (hadith.ar != null && hadith.ar!.isNotEmpty)
+                          _buildArabicText(),
+                        const SizedBox(height: 20),
+                        if (hadith.narrator != null && hadith.narrator!.isNotEmpty)
+                          _buildNarratorText(),
+                        const SizedBox(height: 20),
+                        if (hadith.bn != null && hadith.bn!.isNotEmpty)
+                          _buildTranslationText(),
+                        if (hadith.note != null && hadith.note!.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 12),
+                            child: Text(
+                              'Note: ${hadith.note}',
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
-                        ),
-                      const SizedBox(height: 20),
-                      _buildReferences(),
-                    ],
+                        const SizedBox(height: 20),
+                        _buildReferences(),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
