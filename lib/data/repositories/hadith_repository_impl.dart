@@ -46,7 +46,7 @@ class HadithRepositoryImpl implements HadithRepository {
       bookId: hadith.book_id,
       chapterId: hadith.chapter_id,
       bn: hadith.bn,
-      narrator: hadith.narrator, bookName: hadith.book_name, hadithKey: hadith.hadith_key, hadithId: hadith.hadith_id, ar: hadith.ar , grade: hadith.grade
+      narrator: hadith.narrator, bookName: hadith.book_name, hadithKey: hadith.hadith_key, hadithId: hadith.hadith_id, ar: hadith.ar , grade: hadith.grade , gradeColor: hadith.grade_color
     )).toList();
   }
 

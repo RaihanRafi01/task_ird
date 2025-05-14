@@ -38,6 +38,10 @@ class BooksController extends GetxController {
   }
 
   void goToChapters(BookEntity book) {
-    Get.to(() => ChaptersScreen(bookId: book.id));
+    Get.to(
+          () => ChaptersScreen(bookId: book.id),
+      transition: Transition.rightToLeft, // Choose your desired animation
+      duration: Duration(milliseconds: 300), // Optional: Set animation duration
+    );
   }
 }

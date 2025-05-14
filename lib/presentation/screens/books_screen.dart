@@ -15,7 +15,9 @@ class BooksScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Books'),
         backgroundColor: AppColors.appColor,
+        foregroundColor: Colors.white,
         elevation: 0,
+        scrolledUnderElevation: 0,
         centerTitle: true,
       ),
       body: Container(

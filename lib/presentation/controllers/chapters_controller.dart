@@ -28,7 +28,16 @@ class ChaptersController extends GetxController {
 
   // Navigates to the hadiths screen for a selected chapter.
   void goToHadiths(ChapterEntity chapter) {
-    print('Navigating to HadithsScreen with chapter_id: ${chapter.chapterId}, book_id: ${chapter.bookId}, book_name: ${chapter.bookName}, number: ${chapter.number}');
-    Get.to(() => HadithsScreen(chapterId: chapter.chapterId, bookId: chapter.bookId));
+    print(
+        'Navigating to HadithsScreen with chapter_id: ${chapter.chapterId}, book_id: ${chapter.bookId}, book_name: ${chapter.bookName}, number: ${chapter.number}');
+    Get.to(
+      () => HadithsScreen(
+        chapterId: chapter.chapterId,
+        bookId: chapter.bookId,
+        chapterName: chapter.title,
+      ),
+      transition: Transition.rightToLeft, // Choose your desired animation
+      duration: Duration(milliseconds: 300),
+    );
   }
 }

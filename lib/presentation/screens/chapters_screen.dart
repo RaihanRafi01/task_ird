@@ -20,7 +20,13 @@ class ChaptersScreen extends StatelessWidget {
         title: const Text('Chapters'),
         backgroundColor: AppColors.appColor,
         elevation: 0,
+        scrolledUnderElevation: 0,
         centerTitle: true,
+        foregroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded,size: 24,),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Container(
         color: Colors.white,
