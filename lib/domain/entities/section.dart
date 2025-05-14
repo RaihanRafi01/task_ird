@@ -1,4 +1,3 @@
-// Entity representing a Section in the domain layer, including all fields from the Section table.
 class SectionEntity {
   final int id;
   final int bookId;
@@ -7,7 +6,7 @@ class SectionEntity {
   final int sectionId;
   final String title;
   final String? preface;
-  final int? number;
+  final String? number; // Change to String
   final int? sortOrder;
 
   SectionEntity({

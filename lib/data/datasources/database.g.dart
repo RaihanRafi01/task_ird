@@ -832,8 +832,8 @@ class $HadithTable extends Hadith with TableInfo<$HadithTable, HadithData> {
       const VerificationMeta('book_name');
   @override
   late final GeneratedColumn<String> book_name = GeneratedColumn<String>(
-      'book_name', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'book_name', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _chapter_idMeta =
       const VerificationMeta('chapter_id');
   @override
@@ -850,14 +850,14 @@ class $HadithTable extends Hadith with TableInfo<$HadithTable, HadithData> {
       const VerificationMeta('hadith_key');
   @override
   late final GeneratedColumn<String> hadith_key = GeneratedColumn<String>(
-      'hadith_key', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'hadith_key', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _hadith_idMeta =
       const VerificationMeta('hadith_id');
   @override
   late final GeneratedColumn<int> hadith_id = GeneratedColumn<int>(
-      'hadith_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      'hadith_id', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _narratorMeta =
       const VerificationMeta('narrator');
   @override
@@ -942,8 +942,6 @@ class $HadithTable extends Hadith with TableInfo<$HadithTable, HadithData> {
     if (data.containsKey('book_name')) {
       context.handle(_book_nameMeta,
           book_name.isAcceptableOrUnknown(data['book_name']!, _book_nameMeta));
-    } else if (isInserting) {
-      context.missing(_book_nameMeta);
     }
     if (data.containsKey('chapter_id')) {
       context.handle(
@@ -964,14 +962,10 @@ class $HadithTable extends Hadith with TableInfo<$HadithTable, HadithData> {
           _hadith_keyMeta,
           hadith_key.isAcceptableOrUnknown(
               data['hadith_key']!, _hadith_keyMeta));
-    } else if (isInserting) {
-      context.missing(_hadith_keyMeta);
     }
     if (data.containsKey('hadith_id')) {
       context.handle(_hadith_idMeta,
           hadith_id.isAcceptableOrUnknown(data['hadith_id']!, _hadith_idMeta));
-    } else if (isInserting) {
-      context.missing(_hadith_idMeta);
     }
     if (data.containsKey('narrator')) {
       context.handle(_narratorMeta,
@@ -1021,15 +1015,15 @@ class $HadithTable extends Hadith with TableInfo<$HadithTable, HadithData> {
       book_id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}book_id'])!,
       book_name: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}book_name'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}book_name']),
       chapter_id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}chapter_id'])!,
       section_id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}section_id']),
       hadith_key: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}hadith_key'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}hadith_key']),
       hadith_id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}hadith_id'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}hadith_id']),
       narrator: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}narrator']),
       bn: attachedDatabase.typeMapping
@@ -1058,11 +1052,11 @@ class $HadithTable extends Hadith with TableInfo<$HadithTable, HadithData> {
 class HadithData extends DataClass implements Insertable<HadithData> {
   final int id;
   final int book_id;
-  final String book_name;
+  final String? book_name;
   final int chapter_id;
   final int? section_id;
-  final String hadith_key;
-  final int hadith_id;
+  final String? hadith_key;
+  final int? hadith_id;
   final String? narrator;
   final String? bn;
   final String? ar;
@@ -1074,11 +1068,11 @@ class HadithData extends DataClass implements Insertable<HadithData> {
   const HadithData(
       {required this.id,
       required this.book_id,
-      required this.book_name,
+      this.book_name,
       required this.chapter_id,
       this.section_id,
-      required this.hadith_key,
-      required this.hadith_id,
+      this.hadith_key,
+      this.hadith_id,
       this.narrator,
       this.bn,
       this.ar,
@@ -1092,13 +1086,19 @@ class HadithData extends DataClass implements Insertable<HadithData> {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['book_id'] = Variable<int>(book_id);
-    map['book_name'] = Variable<String>(book_name);
+    if (!nullToAbsent || book_name != null) {
+      map['book_name'] = Variable<String>(book_name);
+    }
     map['chapter_id'] = Variable<int>(chapter_id);
     if (!nullToAbsent || section_id != null) {
       map['section_id'] = Variable<int>(section_id);
     }
-    map['hadith_key'] = Variable<String>(hadith_key);
-    map['hadith_id'] = Variable<int>(hadith_id);
+    if (!nullToAbsent || hadith_key != null) {
+      map['hadith_key'] = Variable<String>(hadith_key);
+    }
+    if (!nullToAbsent || hadith_id != null) {
+      map['hadith_id'] = Variable<int>(hadith_id);
+    }
     if (!nullToAbsent || narrator != null) {
       map['narrator'] = Variable<String>(narrator);
     }
@@ -1130,13 +1130,19 @@ class HadithData extends DataClass implements Insertable<HadithData> {
     return HadithCompanion(
       id: Value(id),
       book_id: Value(book_id),
-      book_name: Value(book_name),
+      book_name: book_name == null && nullToAbsent
+          ? const Value.absent()
+          : Value(book_name),
       chapter_id: Value(chapter_id),
       section_id: section_id == null && nullToAbsent
           ? const Value.absent()
           : Value(section_id),
-      hadith_key: Value(hadith_key),
-      hadith_id: Value(hadith_id),
+      hadith_key: hadith_key == null && nullToAbsent
+          ? const Value.absent()
+          : Value(hadith_key),
+      hadith_id: hadith_id == null && nullToAbsent
+          ? const Value.absent()
+          : Value(hadith_id),
       narrator: narrator == null && nullToAbsent
           ? const Value.absent()
           : Value(narrator),
@@ -1163,11 +1169,11 @@ class HadithData extends DataClass implements Insertable<HadithData> {
     return HadithData(
       id: serializer.fromJson<int>(json['id']),
       book_id: serializer.fromJson<int>(json['book_id']),
-      book_name: serializer.fromJson<String>(json['book_name']),
+      book_name: serializer.fromJson<String?>(json['book_name']),
       chapter_id: serializer.fromJson<int>(json['chapter_id']),
       section_id: serializer.fromJson<int?>(json['section_id']),
-      hadith_key: serializer.fromJson<String>(json['hadith_key']),
-      hadith_id: serializer.fromJson<int>(json['hadith_id']),
+      hadith_key: serializer.fromJson<String?>(json['hadith_key']),
+      hadith_id: serializer.fromJson<int?>(json['hadith_id']),
       narrator: serializer.fromJson<String?>(json['narrator']),
       bn: serializer.fromJson<String?>(json['bn']),
       ar: serializer.fromJson<String?>(json['ar']),
@@ -1184,11 +1190,11 @@ class HadithData extends DataClass implements Insertable<HadithData> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'book_id': serializer.toJson<int>(book_id),
-      'book_name': serializer.toJson<String>(book_name),
+      'book_name': serializer.toJson<String?>(book_name),
       'chapter_id': serializer.toJson<int>(chapter_id),
       'section_id': serializer.toJson<int?>(section_id),
-      'hadith_key': serializer.toJson<String>(hadith_key),
-      'hadith_id': serializer.toJson<int>(hadith_id),
+      'hadith_key': serializer.toJson<String?>(hadith_key),
+      'hadith_id': serializer.toJson<int?>(hadith_id),
       'narrator': serializer.toJson<String?>(narrator),
       'bn': serializer.toJson<String?>(bn),
       'ar': serializer.toJson<String?>(ar),
@@ -1203,11 +1209,11 @@ class HadithData extends DataClass implements Insertable<HadithData> {
   HadithData copyWith(
           {int? id,
           int? book_id,
-          String? book_name,
+          Value<String?> book_name = const Value.absent(),
           int? chapter_id,
           Value<int?> section_id = const Value.absent(),
-          String? hadith_key,
-          int? hadith_id,
+          Value<String?> hadith_key = const Value.absent(),
+          Value<int?> hadith_id = const Value.absent(),
           Value<String?> narrator = const Value.absent(),
           Value<String?> bn = const Value.absent(),
           Value<String?> ar = const Value.absent(),
@@ -1219,11 +1225,11 @@ class HadithData extends DataClass implements Insertable<HadithData> {
       HadithData(
         id: id ?? this.id,
         book_id: book_id ?? this.book_id,
-        book_name: book_name ?? this.book_name,
+        book_name: book_name.present ? book_name.value : this.book_name,
         chapter_id: chapter_id ?? this.chapter_id,
         section_id: section_id.present ? section_id.value : this.section_id,
-        hadith_key: hadith_key ?? this.hadith_key,
-        hadith_id: hadith_id ?? this.hadith_id,
+        hadith_key: hadith_key.present ? hadith_key.value : this.hadith_key,
+        hadith_id: hadith_id.present ? hadith_id.value : this.hadith_id,
         narrator: narrator.present ? narrator.value : this.narrator,
         bn: bn.present ? bn.value : this.bn,
         ar: ar.present ? ar.value : this.ar,
@@ -1321,11 +1327,11 @@ class HadithData extends DataClass implements Insertable<HadithData> {
 class HadithCompanion extends UpdateCompanion<HadithData> {
   final Value<int> id;
   final Value<int> book_id;
-  final Value<String> book_name;
+  final Value<String?> book_name;
   final Value<int> chapter_id;
   final Value<int?> section_id;
-  final Value<String> hadith_key;
-  final Value<int> hadith_id;
+  final Value<String?> hadith_key;
+  final Value<int?> hadith_id;
   final Value<String?> narrator;
   final Value<String?> bn;
   final Value<String?> ar;
@@ -1354,11 +1360,11 @@ class HadithCompanion extends UpdateCompanion<HadithData> {
   HadithCompanion.insert({
     this.id = const Value.absent(),
     required int book_id,
-    required String book_name,
+    this.book_name = const Value.absent(),
     required int chapter_id,
     this.section_id = const Value.absent(),
-    required String hadith_key,
-    required int hadith_id,
+    this.hadith_key = const Value.absent(),
+    this.hadith_id = const Value.absent(),
     this.narrator = const Value.absent(),
     this.bn = const Value.absent(),
     this.ar = const Value.absent(),
@@ -1368,10 +1374,7 @@ class HadithCompanion extends UpdateCompanion<HadithData> {
     this.grade = const Value.absent(),
     this.grade_color = const Value.absent(),
   })  : book_id = Value(book_id),
-        book_name = Value(book_name),
-        chapter_id = Value(chapter_id),
-        hadith_key = Value(hadith_key),
-        hadith_id = Value(hadith_id);
+        chapter_id = Value(chapter_id);
   static Insertable<HadithData> custom({
     Expression<int>? id,
     Expression<int>? book_id,
@@ -1411,11 +1414,11 @@ class HadithCompanion extends UpdateCompanion<HadithData> {
   HadithCompanion copyWith(
       {Value<int>? id,
       Value<int>? book_id,
-      Value<String>? book_name,
+      Value<String?>? book_name,
       Value<int>? chapter_id,
       Value<int?>? section_id,
-      Value<String>? hadith_key,
-      Value<int>? hadith_id,
+      Value<String?>? hadith_key,
+      Value<int?>? hadith_id,
       Value<String?>? narrator,
       Value<String?>? bn,
       Value<String?>? ar,
@@ -1568,9 +1571,9 @@ class $SectionTable extends Section with TableInfo<$SectionTable, SectionData> {
       type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _numberMeta = const VerificationMeta('number');
   @override
-  late final GeneratedColumn<int> number = GeneratedColumn<int>(
+  late final GeneratedColumn<String> number = GeneratedColumn<String>(
       'number', aliasedName, true,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+      type: DriftSqlType.string, requiredDuringInsert: false);
   static const VerificationMeta _sort_orderMeta =
       const VerificationMeta('sort_order');
   @override
@@ -1674,7 +1677,7 @@ class $SectionTable extends Section with TableInfo<$SectionTable, SectionData> {
       preface: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}preface']),
       number: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}number']),
+          .read(DriftSqlType.string, data['${effectivePrefix}number']),
       sort_order: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}sort_order']),
     );
@@ -1694,7 +1697,7 @@ class SectionData extends DataClass implements Insertable<SectionData> {
   final int section_id;
   final String title;
   final String? preface;
-  final int? number;
+  final String? number;
   final int? sort_order;
   const SectionData(
       {required this.id,
@@ -1719,7 +1722,7 @@ class SectionData extends DataClass implements Insertable<SectionData> {
       map['preface'] = Variable<String>(preface);
     }
     if (!nullToAbsent || number != null) {
-      map['number'] = Variable<int>(number);
+      map['number'] = Variable<String>(number);
     }
     if (!nullToAbsent || sort_order != null) {
       map['sort_order'] = Variable<int>(sort_order);
@@ -1757,7 +1760,7 @@ class SectionData extends DataClass implements Insertable<SectionData> {
       section_id: serializer.fromJson<int>(json['section_id']),
       title: serializer.fromJson<String>(json['title']),
       preface: serializer.fromJson<String?>(json['preface']),
-      number: serializer.fromJson<int?>(json['number']),
+      number: serializer.fromJson<String?>(json['number']),
       sort_order: serializer.fromJson<int?>(json['sort_order']),
     );
   }
@@ -1772,7 +1775,7 @@ class SectionData extends DataClass implements Insertable<SectionData> {
       'section_id': serializer.toJson<int>(section_id),
       'title': serializer.toJson<String>(title),
       'preface': serializer.toJson<String?>(preface),
-      'number': serializer.toJson<int?>(number),
+      'number': serializer.toJson<String?>(number),
       'sort_order': serializer.toJson<int?>(sort_order),
     };
   }
@@ -1785,7 +1788,7 @@ class SectionData extends DataClass implements Insertable<SectionData> {
           int? section_id,
           String? title,
           Value<String?> preface = const Value.absent(),
-          Value<int?> number = const Value.absent(),
+          Value<String?> number = const Value.absent(),
           Value<int?> sort_order = const Value.absent()}) =>
       SectionData(
         id: id ?? this.id,
@@ -1857,7 +1860,7 @@ class SectionCompanion extends UpdateCompanion<SectionData> {
   final Value<int> section_id;
   final Value<String> title;
   final Value<String?> preface;
-  final Value<int?> number;
+  final Value<String?> number;
   final Value<int?> sort_order;
   const SectionCompanion({
     this.id = const Value.absent(),
@@ -1893,7 +1896,7 @@ class SectionCompanion extends UpdateCompanion<SectionData> {
     Expression<int>? section_id,
     Expression<String>? title,
     Expression<String>? preface,
-    Expression<int>? number,
+    Expression<String>? number,
     Expression<int>? sort_order,
   }) {
     return RawValuesInsertable({
@@ -1917,7 +1920,7 @@ class SectionCompanion extends UpdateCompanion<SectionData> {
       Value<int>? section_id,
       Value<String>? title,
       Value<String?>? preface,
-      Value<int?>? number,
+      Value<String?>? number,
       Value<int?>? sort_order}) {
     return SectionCompanion(
       id: id ?? this.id,
@@ -1957,7 +1960,7 @@ class SectionCompanion extends UpdateCompanion<SectionData> {
       map['preface'] = Variable<String>(preface.value);
     }
     if (number.present) {
-      map['number'] = Variable<int>(number.value);
+      map['number'] = Variable<String>(number.value);
     }
     if (sort_order.present) {
       map['sort_order'] = Variable<int>(sort_order.value);
@@ -2393,11 +2396,11 @@ typedef $$ChapterTableProcessedTableManager = ProcessedTableManager<
 typedef $$HadithTableCreateCompanionBuilder = HadithCompanion Function({
   Value<int> id,
   required int book_id,
-  required String book_name,
+  Value<String?> book_name,
   required int chapter_id,
   Value<int?> section_id,
-  required String hadith_key,
-  required int hadith_id,
+  Value<String?> hadith_key,
+  Value<int?> hadith_id,
   Value<String?> narrator,
   Value<String?> bn,
   Value<String?> ar,
@@ -2410,11 +2413,11 @@ typedef $$HadithTableCreateCompanionBuilder = HadithCompanion Function({
 typedef $$HadithTableUpdateCompanionBuilder = HadithCompanion Function({
   Value<int> id,
   Value<int> book_id,
-  Value<String> book_name,
+  Value<String?> book_name,
   Value<int> chapter_id,
   Value<int?> section_id,
-  Value<String> hadith_key,
-  Value<int> hadith_id,
+  Value<String?> hadith_key,
+  Value<int?> hadith_id,
   Value<String?> narrator,
   Value<String?> bn,
   Value<String?> ar,
@@ -2614,11 +2617,11 @@ class $$HadithTableTableManager extends RootTableManager<
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> book_id = const Value.absent(),
-            Value<String> book_name = const Value.absent(),
+            Value<String?> book_name = const Value.absent(),
             Value<int> chapter_id = const Value.absent(),
             Value<int?> section_id = const Value.absent(),
-            Value<String> hadith_key = const Value.absent(),
-            Value<int> hadith_id = const Value.absent(),
+            Value<String?> hadith_key = const Value.absent(),
+            Value<int?> hadith_id = const Value.absent(),
             Value<String?> narrator = const Value.absent(),
             Value<String?> bn = const Value.absent(),
             Value<String?> ar = const Value.absent(),
@@ -2648,11 +2651,11 @@ class $$HadithTableTableManager extends RootTableManager<
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required int book_id,
-            required String book_name,
+            Value<String?> book_name = const Value.absent(),
             required int chapter_id,
             Value<int?> section_id = const Value.absent(),
-            required String hadith_key,
-            required int hadith_id,
+            Value<String?> hadith_key = const Value.absent(),
+            Value<int?> hadith_id = const Value.absent(),
             Value<String?> narrator = const Value.absent(),
             Value<String?> bn = const Value.absent(),
             Value<String?> ar = const Value.absent(),
@@ -2706,7 +2709,7 @@ typedef $$SectionTableCreateCompanionBuilder = SectionCompanion Function({
   required int section_id,
   required String title,
   Value<String?> preface,
-  Value<int?> number,
+  Value<String?> number,
   Value<int?> sort_order,
 });
 typedef $$SectionTableUpdateCompanionBuilder = SectionCompanion Function({
@@ -2717,7 +2720,7 @@ typedef $$SectionTableUpdateCompanionBuilder = SectionCompanion Function({
   Value<int> section_id,
   Value<String> title,
   Value<String?> preface,
-  Value<int?> number,
+  Value<String?> number,
   Value<int?> sort_order,
 });
 
@@ -2751,7 +2754,7 @@ class $$SectionTableFilterComposer
   ColumnFilters<String> get preface => $composableBuilder(
       column: $table.preface, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get number => $composableBuilder(
+  ColumnFilters<String> get number => $composableBuilder(
       column: $table.number, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get sort_order => $composableBuilder(
@@ -2788,7 +2791,7 @@ class $$SectionTableOrderingComposer
   ColumnOrderings<String> get preface => $composableBuilder(
       column: $table.preface, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get number => $composableBuilder(
+  ColumnOrderings<String> get number => $composableBuilder(
       column: $table.number, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<int> get sort_order => $composableBuilder(
@@ -2825,7 +2828,7 @@ class $$SectionTableAnnotationComposer
   GeneratedColumn<String> get preface =>
       $composableBuilder(column: $table.preface, builder: (column) => column);
 
-  GeneratedColumn<int> get number =>
+  GeneratedColumn<String> get number =>
       $composableBuilder(column: $table.number, builder: (column) => column);
 
   GeneratedColumn<int> get sort_order => $composableBuilder(
@@ -2862,7 +2865,7 @@ class $$SectionTableTableManager extends RootTableManager<
             Value<int> section_id = const Value.absent(),
             Value<String> title = const Value.absent(),
             Value<String?> preface = const Value.absent(),
-            Value<int?> number = const Value.absent(),
+            Value<String?> number = const Value.absent(),
             Value<int?> sort_order = const Value.absent(),
           }) =>
               SectionCompanion(
@@ -2884,7 +2887,7 @@ class $$SectionTableTableManager extends RootTableManager<
             required int section_id,
             required String title,
             Value<String?> preface = const Value.absent(),
-            Value<int?> number = const Value.absent(),
+            Value<String?> number = const Value.absent(),
             Value<int?> sort_order = const Value.absent(),
           }) =>
               SectionCompanion.insert(

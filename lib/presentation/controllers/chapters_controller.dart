@@ -34,7 +34,6 @@ class ChaptersController extends GetxController {
       () => HadithsScreen(
         chapterId: chapter.chapterId,
         bookId: chapter.bookId,
-        chapterName: chapter.title,
       ),
       transition: Transition.rightToLeft, // Choose your desired animation
       duration: Duration(milliseconds: 300),

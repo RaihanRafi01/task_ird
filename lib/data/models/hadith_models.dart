@@ -24,11 +24,11 @@ class Chapter extends Table {
 class Hadith extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get book_id => integer()();
-  TextColumn get book_name => text()();
+  TextColumn get book_name => text().nullable()();
   IntColumn get chapter_id => integer()();
   IntColumn get section_id => integer().nullable()();
-  TextColumn get hadith_key => text()();
-  IntColumn get hadith_id => integer()();
+  TextColumn get hadith_key => text().nullable()();
+  IntColumn get hadith_id => integer().nullable()();
   TextColumn get narrator => text().nullable()();
   TextColumn get bn => text().nullable()();
   TextColumn get ar => text().nullable()();
@@ -47,6 +47,6 @@ class Section extends Table {
   IntColumn get section_id => integer()();
   TextColumn get title => text()();
   TextColumn get preface => text().nullable()();
-  IntColumn get number => integer().nullable()();
+  TextColumn get number => text().nullable()(); // Change to text
   IntColumn get sort_order => integer().nullable()();
 }
