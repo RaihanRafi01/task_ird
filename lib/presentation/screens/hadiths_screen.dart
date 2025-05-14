@@ -60,7 +60,14 @@ class HadithsScreen extends StatelessWidget {
                   final hadith = controller.hadiths[index];
                   return ListTile(
                     title: Text(hadith.bn?.isNotEmpty == true ? hadith.bn! : 'No text available'),
-                    subtitle: Text(hadith.narrator?.isNotEmpty == true ? 'Narrated by: ${hadith.narrator}' : 'Narrator unknown'),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(hadith.narrator?.isNotEmpty == true ? 'Narrated by: ${hadith.narrator}' : 'Narrator unknown'),
+                        Text(hadith.ar?.isNotEmpty == true ? 'Arabic: ${hadith.ar}' : 'No Arabic text'),
+                        Text(hadith.grade?.isNotEmpty == true ? 'Grade: ${hadith.grade}' : 'No grade'),
+                      ],
+                    ),
                   );
                 },
               ),

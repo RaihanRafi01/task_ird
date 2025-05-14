@@ -96,6 +96,21 @@ class MyDatabase extends _$MyDatabase {
       return null;
     }
   }
+
+  Future<List<SectionData>> getSections(int chapterId, int bookId) async {
+    try {
+      final results = await (select(section)
+        ..where((s) => s.chapter_id.equals(chapterId) & s.book_id.equals(
+            bookId)))
+          .get();
+      print('getSections: chapter_id=$chapterId, book_id=$bookId, results_count=${results.length}');
+      return results;
+    } catch (e, stack) {
+      print('Error in getSections: $e');
+      print('Stack trace: $stack');
+      return [];
+    }
+  }
 }
 
 // Opens a connection to the Drift database.

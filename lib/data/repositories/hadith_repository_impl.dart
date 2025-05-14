@@ -1,3 +1,5 @@
+import 'package:task_ird/domain/entities/section.dart';
+
 import '../../domain/entities/book.dart';
 import '../../domain/entities/chapter.dart';
 import '../../domain/entities/hadith.dart';
@@ -18,7 +20,7 @@ class HadithRepositoryImpl implements HadithRepository {
       id: book.id,
       title: book.title,
       numberOfHadis: book.number_of_hadis,
-      bookName: book.book_name,
+      bookName: book.book_name, titleAr: book.title_ar, abvrCode: book.abvr_code, bookDescr: book.book_descr, colorCode: book.color_code,
     )).toList();
   }
 
@@ -31,7 +33,7 @@ class HadithRepositoryImpl implements HadithRepository {
       bookId: chapter.book_id,
       title: chapter.title,
       number: chapter.number,
-      bookName: chapter.book_name,
+      bookName: chapter.book_name, id: chapter.id, hadisRange: chapter.hadis_range
     )).toList();
   }
 
@@ -44,7 +46,7 @@ class HadithRepositoryImpl implements HadithRepository {
       bookId: hadith.book_id,
       chapterId: hadith.chapter_id,
       bn: hadith.bn,
-      narrator: hadith.narrator,
+      narrator: hadith.narrator, bookName: hadith.book_name, hadithKey: hadith.hadith_key, hadithId: hadith.hadith_id, ar: hadith.ar , grade: hadith.grade
     )).toList();
   }
 
@@ -57,7 +59,7 @@ class HadithRepositoryImpl implements HadithRepository {
       bookId: hadith.book_id,
       chapterId: hadith.chapter_id,
       bn: hadith.bn,
-      narrator: hadith.narrator,
+      narrator: hadith.narrator, bookName: hadith.book_name, hadithKey: hadith.hadith_key, hadithId: hadith.hadith_id,
     )).toList();
   }
 
@@ -71,7 +73,24 @@ class HadithRepositoryImpl implements HadithRepository {
       bookId: chapter.book_id,
       title: chapter.title,
       number: chapter.number,
-      bookName: chapter.book_name,
+      bookName: chapter.book_name, id: chapter.id,
     );
+  }
+
+  @override
+  Future<List<SectionEntity>> getSections(int chapterId, int bookId) async {
+    // Fetch sections for a chapter and book, map to domain entities with all fields.
+    final sections = await _database.getSections(chapterId, bookId);
+    return sections.map((section) => SectionEntity(
+      id: section.id,
+      bookId: section.book_id,
+      bookName: section.book_name,
+      chapterId: section.chapter_id,
+      sectionId: section.section_id,
+      title: section.title,
+      preface: section.preface,
+      number: section.number,
+      sortOrder: section.sort_order,
+    )).toList();
   }
 }

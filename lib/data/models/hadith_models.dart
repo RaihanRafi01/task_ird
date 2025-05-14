@@ -1,6 +1,5 @@
 import 'package:drift/drift.dart';
 
-// Defines the Books table schema for the Drift database.
 class Books extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get title => text()();
@@ -12,7 +11,6 @@ class Books extends Table {
   TextColumn get color_code => text()();
 }
 
-// Defines the Chapter table schema for the Drift database.
 class Chapter extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get chapter_id => integer()();
@@ -23,7 +21,6 @@ class Chapter extends Table {
   TextColumn get book_name => text()();
 }
 
-// Defines the Hadith table schema for the Drift database.
 class Hadith extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get book_id => integer()();
@@ -42,11 +39,10 @@ class Hadith extends Table {
   TextColumn get grade_color => text().nullable()();
 }
 
-// Defines the Section table schema for the Drift database.
 class Section extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get book_id => integer()();
-  TextColumn get book_name => text()(); // Schema says integer, assuming text
+  TextColumn get book_name => text()();
   IntColumn get chapter_id => integer()();
   IntColumn get section_id => integer()();
   TextColumn get title => text()();

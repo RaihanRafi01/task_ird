@@ -31,7 +31,7 @@ class ChaptersScreen extends StatelessWidget {
             final chapter = controller.chapters[index];
             return ListTile(
               title: Text(chapter.title),
-              subtitle: Text('Range: ${chapter.number}'),
+              subtitle: Text(chapter.hadisRange ?? 'No range specified'),
               onTap: () => controller.goToHadiths(chapter),
             );
           },

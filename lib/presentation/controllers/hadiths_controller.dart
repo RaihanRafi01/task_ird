@@ -27,7 +27,7 @@ class HadithsController extends GetxController {
       allHadiths.assignAll(allHadithsResult);
       print('HadithsScreen: chapter_id=$chapterId, book_id=$bookId, hadiths_count=${hadiths.length}, total_hadiths=${allHadiths.length}, chapter_exists=${chapter.value != null}');
       if (hadiths.isNotEmpty) {
-        print('Sample hadith: id=${hadiths.first.id}, bn=${hadiths.first.bn}, narrator=${hadiths.first.narrator}');
+        print('Sample hadith: id=${hadiths.first.id}, bn=${hadiths.first.bn}, ar=${hadiths.first.ar}, narrator=${hadiths.first.narrator}, grade=${hadiths.first.grade}');
       }
     } catch (e) {
       errorMessage('Failed to load hadiths: $e');

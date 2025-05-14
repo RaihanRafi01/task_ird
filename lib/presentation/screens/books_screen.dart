@@ -28,7 +28,7 @@ class BooksScreen extends StatelessWidget {
             final book = controller.books[index];
             return ListTile(
               title: Text(book.title),
-              subtitle: Text('Hadiths: ${book.numberOfHadis}'),
+              subtitle: Text('Hadiths: ${book.abvrCode}'),
               onTap: () => controller.goToChapters(book),
             );
           },
