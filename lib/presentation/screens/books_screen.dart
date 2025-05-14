@@ -181,111 +181,137 @@ class _BookListItemState extends State<BookListItem>
       onTapCancel: () => _tapController.reverse(),
       child: ScaleTransition(
         scale: _scaleAnimation,
-        child: ListTile(
-          leading: Icon(
-            Icons.book,
-            color: _parseColor(widget.book.colorCode),
-            size: 40,
-          ),
-          title: Text(
-            widget.book.title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            overflow: TextOverflow.ellipsis,
-          ),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.book.titleAr,
-                style: const TextStyle(fontSize: 14, color: AppColors.txtColorGray),
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
-                'Hadiths count: ${widget.book.numberOfHadis}',
-                style: const TextStyle(fontSize: 12, color: AppColors.txtColor),
-              ),
-            ],
-          ),
-          trailing: PopupMenuButton<String>(
-            icon: const Icon(Icons.more_vert, color: AppColors.appColor),
-            onSelected: (value) {
-              if (value == 'description') {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text(
-                      widget.book.title,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.appColor,
-                      ),
-                    ),
-                    content: SingleChildScrollView(
-                      child: Text(
-                        _parseDescription(widget.book.bookDescr),
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: AppColors.txtColor,
-                        ),
-                      ),
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text(
-                          'Close',
-                          style: TextStyle(color: AppColors.appColor),
-                        ),
-                      ),
-                    ],
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    elevation: 4,
-                  ),
-                );
-              }
-            },
-            itemBuilder: (context) => [
-              PopupMenuItem<String>(
-                value: 'description',
-                child: AnimatedOpacity(
-                  opacity: 1.0,
-                  duration: const Duration(milliseconds: 200),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.description,
-                        color: AppColors.appColor,
-                        size: 20,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        'View Description',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.txtColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Card(
+            color: Colors.white,
+            elevation: 2,
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            color: Colors.white,
-            elevation: 4,
-            offset: const Offset(0, 8),
-            splashRadius: 20,
-            tooltip: 'More options',
-          ),
-          contentPadding:
+            child: ListTile(
+              contentPadding:
               const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              leading: Icon(
+                Icons.book,
+                color: _parseColor(widget.book.colorCode),
+                size: 40,
+              ),
+              title: Text(
+                widget.book.title,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.txtColor,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.book.titleAr,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: AppColors.txtColorGray,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    'Hadiths count: ${widget.book.numberOfHadis}',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: AppColors.txtColorGray,
+                    ),
+                  ),
+                ],
+              ),
+              trailing: PopupMenuButton<String>(
+                icon: Icon(
+                  Icons.more_vert,
+                  color: AppColors.appColor,
+                  size: 20,
+                ),
+                onSelected: (value) {
+                  if (value == 'description') {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text(
+                          widget.book.title,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.appColor,
+                          ),
+                        ),
+                        content: SingleChildScrollView(
+                          child: Text(
+                            _parseDescription(widget.book.bookDescr),
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: AppColors.txtColor,
+                            ),
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text(
+                              'Close',
+                              style: TextStyle(color: AppColors.appColor),
+                            ),
+                          ),
+                        ],
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 4,
+                      ),
+                    );
+                  }
+                },
+                itemBuilder: (context) => [
+                  PopupMenuItem<String>(
+                    value: 'description',
+                    child: AnimatedOpacity(
+                      opacity: 1.0,
+                      duration: const Duration(milliseconds: 200),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.description,
+                            color: AppColors.appColor,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'View Description',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.txtColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                color: Colors.white,
+                elevation: 4,
+                offset: const Offset(0, 8),
+                splashRadius: 20,
+                tooltip: 'More options',
+              ),
+              onTap: () => widget.controller.goToChapters(widget.book),
+            ),
+          ),
         ),
       ),
     );
@@ -314,4 +340,5 @@ class _BookListItemState extends State<BookListItem>
     result = result.replaceAll(RegExp(r'\*\*(.*?)\*\*'), '');
     return result;
   }
+
 }
