@@ -1,4 +1,4 @@
-# Hadith Explorer
+# Hadith App
 
 
 ## 📱 Overview
