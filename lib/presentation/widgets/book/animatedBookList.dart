@@ -19,16 +19,24 @@ class AnimatedBookList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Create a new Set for tracking animated indices in this session
+    final Set<int> animatedIndices = {};
+
     return ListView.separated(
       padding: const EdgeInsets.symmetric(vertical: 8),
       itemCount: books.length,
       itemBuilder: (context, index) {
         final book = books[index];
-        // Use RxBool for animation state
-        final isVisible = (animate ? index * 0.1 : 0.0).obs; // Delay for each item
-        Future.delayed(Duration(milliseconds: (index * 100)), () {
-          isVisible.value = 1.0; // Trigger animation
-        });
+        // Animate only for indices 0–9 if animate is true and not yet animated
+        final shouldAnimate = animate && index < 10 && !animatedIndices.contains(index);
+        // Use RxDouble for animation state
+        final isVisible = (shouldAnimate ? 0.0 : 1.0).obs; // Start hidden if animating
+        if (shouldAnimate) {
+          Future.delayed(Duration(milliseconds: (index * 100)), () {
+            isVisible.value = 1.0; // Trigger animation
+            animatedIndices.add(index); // Mark as animated for this session
+          });
+        }
 
         return Obx(() => AnimatedSlide(
           offset: Offset(1.0 - isVisible.value, 0.0),
