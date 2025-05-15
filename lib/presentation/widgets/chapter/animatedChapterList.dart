@@ -19,16 +19,22 @@ class AnimatedChapterList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Create a new Set for tracking animated indices in this session
+    final Set<int> animatedIndices = {};
+
     return ListView.separated(
       padding: const EdgeInsets.symmetric(vertical: 8),
       itemCount: chapters.length,
       itemBuilder: (context, index) {
         final chapter = chapters[index];
+        // Animate only for indices 0–9 if animate is true and not yet animated in this session
+        final shouldAnimate = animate && index < 8 && !animatedIndices.contains(index);
         // Use RxDouble for animation state
-        final isVisible = (animate ? 0.0 : 1.0).obs; // Start hidden if animating
-        if (animate) {
+        final isVisible = (shouldAnimate ? 0.0 : 1.0).obs; // Start hidden if animating
+        if (shouldAnimate) {
           Future.delayed(Duration(milliseconds: (index * 100)), () {
             isVisible.value = 1.0; // Trigger animation
+            animatedIndices.add(index); // Mark as animated for this session
           });
         }
 
