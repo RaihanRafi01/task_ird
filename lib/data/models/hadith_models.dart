@@ -47,6 +47,6 @@ class Section extends Table {
   IntColumn get section_id => integer()();
   TextColumn get title => text()();
   TextColumn get preface => text().nullable()();
-  TextColumn get number => text().nullable()(); // Change to text
+  TextColumn get number => text().nullable()(); // Changed to text
   IntColumn get sort_order => integer().nullable()();
 }
