@@ -28,7 +28,7 @@ class HadithCard extends StatelessWidget {
     SectionEntity? matchingSection;
     if (hadith.sectionId != null) {
       matchingSection = controller.sections.firstWhereOrNull(
-            (section) => section.sectionId == hadith.sectionId,
+        (section) => section.sectionId == hadith.sectionId,
       );
     }
 
@@ -157,10 +157,7 @@ class HadithCard extends StatelessWidget {
               SvgPicture.asset(AppConstants.hadithHexagonIconPath),
               Text(
                 'B',
-                style: h3.copyWith(
-                  fontSize: 14,
-                  color: Colors.white
-                ),
+                style: h3.copyWith(fontSize: 14, color: Colors.white),
               ),
             ],
           ),
@@ -192,7 +189,7 @@ class HadithCard extends StatelessWidget {
                 Text(
                   hadith.bookName,
                   style:
-                  h4.copyWith(fontSize: 12, color: AppColors.subTitleColor),
+                      h4.copyWith(fontSize: 12, color: AppColors.subTitleColor),
                 ),
               ],
             ),
@@ -215,7 +212,7 @@ class HadithCard extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           GestureDetector(
-              onTap: (){
+              onTap: () {
                 showHadithMoreOptions(context, hadith.id);
               },
               child: const Icon(Icons.more_vert_rounded,

@@ -6,7 +6,7 @@ class SectionEntity {
   final int sectionId;
   final String title;
   final String? preface;
-  final String? number; // Change to String
+  final String? number;
   final int? sortOrder;
 
   SectionEntity({

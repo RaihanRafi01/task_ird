@@ -14,7 +14,6 @@ class BookListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Reactive scale for tap animation
     final scale = 1.0.obs;
 
     return GestureDetector(

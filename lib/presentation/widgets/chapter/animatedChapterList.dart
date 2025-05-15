@@ -44,7 +44,7 @@ class AnimatedChapterListState extends State<AnimatedChapterList>
     // Initialize animations for the first 8 items if animate is true
     _animations = List.generate(
       widget.chapters.length,
-          (index) {
+      (index) {
         if (!widget.animate || index >= 8) {
           return const AlwaysStoppedAnimation(1.0);
         }
@@ -69,7 +69,8 @@ class AnimatedChapterListState extends State<AnimatedChapterList>
   void didUpdateWidget(AnimatedChapterList oldWidget) {
     super.didUpdateWidget(oldWidget);
     // Reset animations if chapters or animate flag changes
-    if (oldWidget.chapters != widget.chapters || oldWidget.animate != widget.animate) {
+    if (oldWidget.chapters != widget.chapters ||
+        oldWidget.animate != widget.animate) {
       _animationController.reset();
       _initializeAnimations();
       if (widget.animate) {
@@ -106,7 +107,8 @@ class AnimatedChapterListState extends State<AnimatedChapterList>
           ),
         );
       },
-      separatorBuilder: (context, index) => const Divider(height: 1, color: Colors.grey),
+      separatorBuilder: (context, index) =>
+          const Divider(height: 1, color: Colors.grey),
     );
   }
 }

@@ -37,7 +37,8 @@ class MyDatabase extends _$MyDatabase {
   // Fetches chapters for a specific book.
   Future<List<ChapterData>> getChapters(int bookId) async {
     try {
-      final result = await (select(chapter)..where((c) => c.book_id.equals(bookId))).get();
+      final result =
+          await (select(chapter)..where((c) => c.book_id.equals(bookId))).get();
       print('getChapters: book_id=$bookId, result_count=${result.length}');
       return result;
     } catch (e, stack) {
@@ -51,11 +52,14 @@ class MyDatabase extends _$MyDatabase {
   Future<List<HadithData>> getHadiths(int chapterId, int bookId) async {
     try {
       final result = await (select(hadith)
-        ..where((h) => h.chapter_id.equals(chapterId) & h.book_id.equals(bookId)))
+            ..where((h) =>
+                h.chapter_id.equals(chapterId) & h.book_id.equals(bookId)))
           .get();
-      print('getHadiths: chapter_id=$chapterId, book_id=$bookId, result_count=${result.length}');
+      print(
+          'getHadiths: chapter_id=$chapterId, book_id=$bookId, result_count=${result.length}');
       if (result.isNotEmpty) {
-        print('Sample hadith: id=${result.first.id}, bn=${result.first.bn}, narrator=${result.first.narrator}');
+        print(
+            'Sample hadith: id=${result.first.id}, bn=${result.first.bn}, narrator=${result.first.narrator}');
       }
       return result;
     } catch (e, stack) {
@@ -82,12 +86,15 @@ class MyDatabase extends _$MyDatabase {
   Future<ChapterData?> getChapterByChapterId(int chapterId, int bookId) async {
     try {
       final results = await (select(chapter)
-        ..where((c) => c.chapter_id.equals(chapterId) & c.book_id.equals(bookId)))
+            ..where((c) =>
+                c.chapter_id.equals(chapterId) & c.book_id.equals(bookId)))
           .get();
-      print('getChapterByChapterId: chapter_id=$chapterId, book_id=$bookId, results_count=${results.length}');
+      print(
+          'getChapterByChapterId: chapter_id=$chapterId, book_id=$bookId, results_count=${results.length}');
       if (results.isEmpty) return null;
       if (results.length > 1) {
-        print('Warning: Multiple chapters found for chapter_id=$chapterId, book_id=$bookId');
+        print(
+            'Warning: Multiple chapters found for chapter_id=$chapterId, book_id=$bookId');
       }
       return results.first;
     } catch (e, stack) {
@@ -100,10 +107,11 @@ class MyDatabase extends _$MyDatabase {
   Future<List<SectionData>> getSections(int chapterId, int bookId) async {
     try {
       final results = await (select(section)
-        ..where((s) => s.chapter_id.equals(chapterId) & s.book_id.equals(
-            bookId)))
+            ..where((s) =>
+                s.chapter_id.equals(chapterId) & s.book_id.equals(bookId)))
           .get();
-      print('getSections: chapter_id=$chapterId, book_id=$bookId, results_count=${results.length}');
+      print(
+          'getSections: chapter_id=$chapterId, book_id=$bookId, results_count=${results.length}');
       return results;
     } catch (e, stack) {
       print('Error in getSections: $e');

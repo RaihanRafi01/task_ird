@@ -29,65 +29,65 @@ class ChapterListItem extends StatelessWidget {
       },
       onTapCancel: () => scale.value = 1.0,
       child: Obx(() => AnimatedScale(
-        scale: scale.value,
-        duration: const Duration(milliseconds: 100),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Card(
-            color: Colors.white,
-            elevation: 2,
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: ListTile(
-              contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              leading: Icon(
-                Icons.bookmark,
-                color: AppColors.appColor,
-                size: 40,
-              ),
-              title: Text(
-                chapter.title,
-                style: h2.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.txtColor,
+            scale: scale.value,
+            duration: const Duration(milliseconds: 100),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Card(
+                color: Colors.white,
+                elevation: 2,
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                overflow: TextOverflow.ellipsis,
-              ),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (chapter.hadisRange != null)
-                    Text(
-                      'Book Name: ${chapter.bookName}',
-                      style: h3.copyWith(
-                        fontSize: 14,
-                        color: AppColors.txtColorGray,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  Text(
-                    'Hadith Range: ${chapter.hadisRange}',
-                    style: h4.copyWith(
-                      fontSize: 12,
-                      color: AppColors.txtColorGray,
-                    ),
+                child: ListTile(
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  leading: Icon(
+                    Icons.bookmark,
+                    color: AppColors.appColor,
+                    size: 40,
                   ),
-                ],
+                  title: Text(
+                    chapter.title,
+                    style: h2.copyWith(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.txtColor,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (chapter.hadisRange != null)
+                        Text(
+                          'Book Name: ${chapter.bookName}',
+                          style: h3.copyWith(
+                            fontSize: 14,
+                            color: AppColors.txtColorGray,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      Text(
+                        'Hadith Range: ${chapter.hadisRange}',
+                        style: h4.copyWith(
+                          fontSize: 12,
+                          color: AppColors.txtColorGray,
+                        ),
+                      ),
+                    ],
+                  ),
+                  trailing: Icon(
+                    Icons.arrow_forward_ios,
+                    color: AppColors.appColor,
+                    size: 20,
+                  ),
+                  onTap: () => controller.goToHadiths(chapter),
+                ),
               ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: AppColors.appColor,
-                size: 20,
-              ),
-              onTap: () => controller.goToHadiths(chapter),
             ),
-          ),
-        ),
-      )),
+          )),
     );
   }
 }

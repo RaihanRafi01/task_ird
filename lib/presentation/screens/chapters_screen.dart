@@ -97,8 +97,8 @@ class ChaptersScreen extends StatelessWidget {
                 // Filter chapters based on search query
                 final filteredChapters = controller.chapters
                     .where((chapter) => chapter.title
-                    .toLowerCase()
-                    .contains(searchQuery.value.toLowerCase()))
+                        .toLowerCase()
+                        .contains(searchQuery.value.toLowerCase()))
                     .toList();
                 if (filteredChapters.isEmpty) {
                   return const Center(

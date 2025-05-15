@@ -33,11 +33,14 @@ class HadithsController extends GetxController {
 
       // Fetch chapter
       try {
-        final chapterResult = await _getHadiths.getChapterByChapterId(chapterId, bookId);
+        final chapterResult =
+            await _getHadiths.getChapterByChapterId(chapterId, bookId);
         chapter.value = chapterResult;
-        print('getChapterByChapterId: chapter_id=$chapterId, book_id=$bookId, results_count=${chapterResult != null ? 1 : 0}');
+        print(
+            'getChapterByChapterId: chapter_id=$chapterId, book_id=$bookId, results_count=${chapterResult != null ? 1 : 0}');
       } catch (e) {
-        print('Error in getChapterByChapterId: $e\nStack trace: ${StackTrace.current}');
+        print(
+            'Error in getChapterByChapterId: $e\nStack trace: ${StackTrace.current}');
         errorMessage('Failed to load chapter: $e');
       }
 
@@ -59,12 +62,15 @@ class HadithsController extends GetxController {
         errorMessage('Failed to load all hadiths: $e');
       }
 
-      print('HadithsScreen: chapter_id=$chapterId, book_id=$bookId, hadiths_count=${hadiths.length}, sections_count=${sections.length}, total_hadiths=${allHadiths.length}, chapter_exists=${chapter.value != null}');
+      print(
+          'HadithsScreen: chapter_id=$chapterId, book_id=$bookId, hadiths_count=${hadiths.length}, sections_count=${sections.length}, total_hadiths=${allHadiths.length}, chapter_exists=${chapter.value != null}');
       if (hadiths.isNotEmpty) {
-        print('Sample hadith: id=${hadiths.first.id}, bn=${hadiths.first.bn}, ar=${hadiths.first.ar}, narrator=${hadiths.first.narrator}, grade=${hadiths.first.grade}');
+        print(
+            'Sample hadith: id=${hadiths.first.id}, bn=${hadiths.first.bn}, ar=${hadiths.first.ar}, narrator=${hadiths.first.narrator}, grade=${hadiths.first.grade}');
       }
       if (sections.isNotEmpty) {
-        print('Sample section: id=${sections.first.id}, title=${sections.first.title}, preface=${sections.first.preface}');
+        print(
+            'Sample section: id=${sections.first.id}, title=${sections.first.title}, preface=${sections.first.preface}');
       }
     } catch (e) {
       errorMessage('Unexpected error: $e');

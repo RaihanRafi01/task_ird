@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../core/constants/appColors.dart';
 import '../../core/constants/appFonts.dart';
 import '../controllers/hadiths_controller.dart';
-import '../../domain/entities/hadith.dart';
-import '../../domain/entities/section.dart';
 import '../widgets/hadith/hadithCard.dart';
-import '../widgets/hadith/hadithBottomSheet.dart';
 
 class HadithsScreen extends StatelessWidget {
   final int chapterId;

@@ -20,7 +20,8 @@ class GetHadiths {
   }
 
   // Fetches chapter details for a specific chapter and book.
-  Future<ChapterEntity?> getChapterByChapterId(int chapterId, int bookId) async {
+  Future<ChapterEntity?> getChapterByChapterId(
+      int chapterId, int bookId) async {
     return await _repository.getChapterByChapterId(chapterId, bookId);
   }
 
