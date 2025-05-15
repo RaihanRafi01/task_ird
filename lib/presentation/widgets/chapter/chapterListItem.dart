@@ -44,7 +44,7 @@ class ChapterListItem extends StatelessWidget {
                   contentPadding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   leading: Icon(
-                    Icons.bookmark,
+                    Icons.menu_book,
                     color: AppColors.appColor,
                     size: 40,
                   ),
