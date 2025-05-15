@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Import flutter_svg
 
-import '../../core/constants/appColors.dart';
-import '../../core/constants/appFonts.dart';
+import '../../../core/constants/appColors.dart';
+import '../../../core/constants/appFonts.dart';
+import '../../../core/constants/constants.dart';
 
 class HadithMoreOptionsSheet extends StatelessWidget {
   final int hadithId;
@@ -63,7 +64,7 @@ class HadithMoreOptionsSheet extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       children: [
         _buildOptionItem(
-          svgPath: 'assets/images/goTo_icon.svg',
+          svgPath: AppConstants.hadithGoToIconPath,
           label: 'Go To Main Hadith',
           onTap: () {
             Navigator.of(context).pop();
@@ -71,7 +72,7 @@ class HadithMoreOptionsSheet extends StatelessWidget {
           },
         ),
         _buildOptionItem(
-          svgPath: 'assets/images/collection_icon.svg',
+          svgPath: AppConstants.hadithCollectionIconPath,
           label: 'Add to Collection',
           onTap: () {
             Navigator.of(context).pop();
@@ -79,7 +80,7 @@ class HadithMoreOptionsSheet extends StatelessWidget {
           },
         ),
         _buildOptionItem(
-          svgPath: 'assets/images/copy_icon.svg',
+          svgPath: AppConstants.hadithCopyIconPath,
           label: 'Bangla Copy',
           onTap: () {
             Navigator.of(context).pop();
@@ -87,7 +88,7 @@ class HadithMoreOptionsSheet extends StatelessWidget {
           },
         ),
         _buildOptionItem(
-          svgPath: 'assets/images/copy_icon.svg',
+          svgPath: AppConstants.hadithCopyIconPath,
           label: 'English Copy',
           onTap: () {
             Navigator.of(context).pop();
@@ -95,7 +96,7 @@ class HadithMoreOptionsSheet extends StatelessWidget {
           },
         ),
         _buildOptionItem(
-          svgPath: 'assets/images/copy_icon.svg',
+          svgPath: AppConstants.hadithCopyIconPath,
           label: 'Arabic Copy',
           onTap: () {
             Navigator.of(context).pop();
@@ -103,7 +104,7 @@ class HadithMoreOptionsSheet extends StatelessWidget {
           },
         ),
         _buildOptionItem(
-          svgPath: 'assets/images/add_icon.svg',
+          svgPath: AppConstants.hadithAddIconPath,
           label: 'Add Hifz',
           onTap: () {
             Navigator.of(context).pop();
@@ -111,7 +112,7 @@ class HadithMoreOptionsSheet extends StatelessWidget {
           },
         ),
         _buildOptionItem(
-          svgPath: 'assets/images/add_icon.svg',
+          svgPath: AppConstants.hadithAddIconPath,
           label: 'Add Note',
           onTap: () {
             Navigator.of(context).pop();
@@ -119,7 +120,7 @@ class HadithMoreOptionsSheet extends StatelessWidget {
           },
         ),
         _buildOptionItem(
-          svgPath: 'assets/images/share_icon.svg',
+          svgPath: AppConstants.hadithShareIconPath,
           label: 'Share',
           onTap: () {
             Navigator.of(context).pop();
@@ -127,7 +128,7 @@ class HadithMoreOptionsSheet extends StatelessWidget {
           },
         ),
         _buildOptionItem(
-          svgPath: 'assets/images/report_icon.svg',
+          svgPath: AppConstants.hadithReportIconPath,
           label: 'Report',
           onTap: () {
             Navigator.of(context).pop();
