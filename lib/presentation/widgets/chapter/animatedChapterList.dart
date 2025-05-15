@@ -24,7 +24,6 @@ class AnimatedChapterListState extends State<AnimatedChapterList>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late List<Animation<double>> _animations;
-  final Set<int> _animatedIndices = {};
 
   @override
   void initState() {
@@ -34,26 +33,36 @@ class AnimatedChapterListState extends State<AnimatedChapterList>
       duration: const Duration(milliseconds: 800),
     );
 
-    // Initialize animations for the first 8 items if animate is true
-    _animations = List.generate(
-      widget.chapters.length,
-          (index) => widget.animate && index < 8
-          ? Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(
-          parent: _animationController,
-          curve: Interval(
-            index * 0.1, // Staggered start
-            (index * 0.1) + 0.5, // Duration for each item
-            curve: Curves.easeOut,
-          ),
-        ),
-      )
-          : const AlwaysStoppedAnimation(1.0), // No animation for others
-    );
+    _initializeAnimations();
 
     if (widget.animate) {
       _animationController.forward();
     }
+  }
+
+  void _initializeAnimations() {
+    // Initialize animations for the first 8 items if animate is true
+    _animations = List.generate(
+      widget.chapters.length,
+          (index) {
+        if (!widget.animate || index >= 8) {
+          return const AlwaysStoppedAnimation(1.0);
+        }
+        // Ensure the interval stays within 0.0 to 1.0
+        double begin = index * 0.1;
+        double end = (begin + 0.3).clamp(0.0, 1.0); // Reduced duration to 0.3
+        return Tween<double>(begin: 0.0, end: 1.0).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Interval(
+              begin,
+              end,
+              curve: Curves.easeOut,
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -62,22 +71,7 @@ class AnimatedChapterListState extends State<AnimatedChapterList>
     // Reset animations if chapters or animate flag changes
     if (oldWidget.chapters != widget.chapters || oldWidget.animate != widget.animate) {
       _animationController.reset();
-      _animatedIndices.clear();
-      _animations = List.generate(
-        widget.chapters.length,
-            (index) => widget.animate && index < 8 && !_animatedIndices.contains(index)
-            ? Tween<double>(begin: 0.0, end: 1.0).animate(
-          CurvedAnimation(
-            parent: _animationController,
-            curve: Interval(
-              index * 0.1,
-              (index * 0.1) + 0.5,
-              curve: Curves.easeOut,
-            ),
-          ),
-        )
-            : const AlwaysStoppedAnimation(1.0),
-      );
+      _initializeAnimations();
       if (widget.animate) {
         _animationController.forward();
       }

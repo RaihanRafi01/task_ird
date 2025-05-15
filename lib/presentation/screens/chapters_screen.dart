@@ -40,7 +40,7 @@ class ChaptersScreen extends StatelessWidget {
           children: [
             // Search bar
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
               child: TextField(
                 onChanged: (value) {
                   searchQuery.value = value; // Update search query reactively
