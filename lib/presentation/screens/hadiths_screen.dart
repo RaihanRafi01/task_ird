@@ -4,6 +4,7 @@ import '../../core/constants/appColors.dart';
 import '../../core/constants/appFonts.dart';
 import '../controllers/hadiths_controller.dart';
 import '../widgets/hadith/hadithCard.dart';
+import '../widgets/hadith/shimmerCard.dart';
 
 class HadithsScreen extends StatelessWidget {
   final int chapterId;
@@ -53,8 +54,14 @@ class HadithsScreen extends StatelessWidget {
             )),
       ),
       body: Obx(() {
-        if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
+        // Show shimmer if hadiths are not yet loaded or still loading
+        if (controller.hadiths.isEmpty || controller.isLoading.value) {
+          return ListView.builder(
+            itemCount: 5, // Show 5 shimmer placeholders
+            itemBuilder: (context, index) => ShimmerHadithCard(
+              showHeader: index == 0, // Show header only for the first item
+            ),
+          );
         }
         if (controller.errorMessage.isNotEmpty) {
           return Center(child: Text(controller.errorMessage.value));

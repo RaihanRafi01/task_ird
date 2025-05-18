@@ -35,8 +35,8 @@ class ChaptersController extends GetxController {
         chapterId: chapter.chapterId,
         bookId: chapter.bookId,
       ),
-      transition: Transition.rightToLeft, // Choose your desired animation
-      duration: Duration(milliseconds: 300),
+      transition: Transition.rightToLeft,
+      //duration: const Duration(milliseconds: 300),
     );
   }
 }

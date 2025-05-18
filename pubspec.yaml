@@ -41,6 +41,7 @@ dependencies:
   sqlite3_flutter_libs: ^0.5.32
   flutter_svg: ^2.1.0
   google_fonts: ^6.2.1
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
