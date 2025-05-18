@@ -70,6 +70,11 @@ Contributions, issues, and feature requests are welcome!
 
 - Md. Raihanul Islam Rafi
 
+## 📬 Contact
+
+For feedback, collaborations, or support:\
+📧 **[raihanrafi.992@gmail.com](mailto\:raihanrafi.992@gmail.com)**
+
 --------------------------
 
 If you found this project helpful or interesting, please consider giving it a star ⭐!
